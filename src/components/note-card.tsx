@@ -1,18 +1,33 @@
-export function NoteCard() {
-  return (
-    <button className="rounded-md text-left bg-slate-800 space-y-3 p-5 overflow-hidden relative outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
-      <span className="text-sm font-medium text-slate-300">há 2 dias</span>
-      <p className="text-sm leading-6 text-slate-400">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae
-        voluptatibus laboriosam unde rerum atque explicabo, veritatis cupiditate
-        vitae. Aliquid ea voluptatem itaque a dolorum temporibus in aliquam
-        autem optio molestiae. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Consectetur rerum sunt sint nulla blanditiis illo
-        maiores illum ipsa doloribus corrupti, tempora nostrum ipsum commodi
-        omnis, voluptatem libero facilis consequatur iusto?
-      </p>
+import * as Dialog from "@radix-ui/react-dialog";
 
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/60 to-black/0 pointer-events-none" />
-    </button>
+interface NoteCardProps {
+  note: {
+    date: Date;
+    content: string;
+  };
+}
+
+export function NoteCard(props: NoteCardProps) {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger className="rounded-md text-left flex flex-col bg-slate-800 gap-3 p-5 overflow-hidden relative outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
+        <span className="text-sm font-medium text-slate-300">
+          {props.note.date.toISOString()}
+        </span>
+        <p className="text-sm leading-6 text-slate-400">{props.note.content}</p>
+
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/60 to-black/0 pointer-events-none" />
+      </Dialog.Trigger>
+      
+      {/* ------ Conteudo do modal ------ */}
+      <Dialog.Portal>
+        <Dialog.Overlay className="inset-0 fixed bg-black/60" />
+        <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full h-[60vh] bg-slate-700 rounded-md flex flex-col outline-none">
+          <div className="flex flex-1 flex-col gap-3 p-5">
+            <span>Há 2 dias</span>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
