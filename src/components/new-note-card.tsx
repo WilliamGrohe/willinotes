@@ -8,7 +8,8 @@ interface NewNoteCardProps {
 }
 
   export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
-  const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true);
+  const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
+  const [isRecording, setIsRecording] = useState(false)
   const [content, setContent] = useState('')
 
   function handleStartEditor() {
@@ -34,6 +35,14 @@ interface NewNoteCardProps {
     toast.success('Nota criada com sucesso!')
   }
 
+  function handleStartRecording(){
+    setIsRecording(true)
+  }
+
+  function handleStopRecording() {
+    setIsRecording(false)
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger className="flex flex-col rounded-md bg-slate-700 p-5 gap-3 text-left outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400">
@@ -54,7 +63,7 @@ interface NewNoteCardProps {
             <X className="size-5" />
           </Dialog.Close>
 
-          <form onSubmit={handleSaveNote} className="flex flex-1 flex-col">
+          <form className="flex flex-1 flex-col">
             <div className="flex flex-1 flex-col gap-3 p-5">
               <span className="text-sm font-medium text-slate-300">
                 Adicionar nota
@@ -63,7 +72,7 @@ interface NewNoteCardProps {
               {shouldShowOnboarding ? (
                 <p className="text-sm leading-6 text-slate-400">
                   Comece{" "}
-                  <button className="font-medium text-lime-400 hover:underline">
+                  <button type="button" onClick={handleStartRecording} className="font-medium text-lime-400 hover:underline">
                     gravando uma nota
                   </button>{" "}
                   em áudio ou se preferir{" "}
@@ -85,12 +94,24 @@ interface NewNoteCardProps {
               )}
             </div>
 
-            <button
-              type="submit"
+            {isRecording ? (
+              <button
+              type="button"
+              onClick={handleStopRecording}
+              className="w-full flex items-center justify-center gap-2 bg-slate-900 py-4 text-center text-sm text-slate-300 outline-none font-medium hover:text-slate-100"
+            >
+              <div className="size-3 rounded-full bg-red-500 animate-pulse" />
+              Gravando (clique p/ interromper)
+            </button>
+            ): (
+              <button
+              type="button"
+              onClick={handleSaveNote}
               className="w-full bg-lime-400 py-4 text-center text-sm text-lime-950 outline-none font-medium hover:bg-lime-500"
             >
               Salvar nota
             </button>
+            )}
           </form>
         </Dialog.Content>
       </Dialog.Portal>
