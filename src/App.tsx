@@ -39,6 +39,10 @@ export function App() {
     const notesArray = notes.filter(note => {
       return note.id !== id
     });
+
+    setNotes(notesArray);
+
+    localStorage.setItem("notes", JSON.stringify(notesArray));
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
