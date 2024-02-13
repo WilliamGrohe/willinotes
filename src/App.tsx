@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import logo from "./assets/willinotes-logo.svg";
 import { NewNoteCard } from "./components/new-note-card";
 import { NoteCard } from "./components/note-card";
+import { toast } from "sonner";
 
 interface Note {
   id: string;
@@ -43,6 +44,8 @@ export function App() {
     setNotes(notesArrayWithoutDeleted)
 
     localStorage.setItem("notes", JSON.stringify(notesArrayWithoutDeleted))
+
+    toast.success('Nota apagada com sucesso!')
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
