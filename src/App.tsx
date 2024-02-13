@@ -36,13 +36,13 @@ export function App() {
   }
 
   function onNoteDeleted(id: string) {
-    const notesArray = notes.filter(note => {
+    const notesArrayWithoutDeleted = notes.filter(note => {
       return note.id !== id
     });
 
-    setNotes(notesArray)
+    setNotes(notesArrayWithoutDeleted)
 
-    localStorage.setItem("notes", JSON.stringify(notesArray))
+    localStorage.setItem("notes", JSON.stringify(notesArrayWithoutDeleted))
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
