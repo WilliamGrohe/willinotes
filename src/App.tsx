@@ -40,9 +40,9 @@ export function App() {
       return note.id !== id
     });
 
-    setNotes(notesArray);
+    setNotes(notesArray)
 
-    localStorage.setItem("notes", JSON.stringify(notesArray));
+    localStorage.setItem("notes", JSON.stringify(notesArray))
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
